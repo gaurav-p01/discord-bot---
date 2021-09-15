@@ -24,8 +24,17 @@ class Basic(commands.Cog):
 
     @commands.command()
     async def embed(self, ctx):
-        em = discord.Embed(title = "Sample Embed", color = discord.Color.green())
+        
+        em = discord.Embed(title = "Sample Embed", color = discord.Color.green(), url = "https://www.google.com")
+
+        em.set_thumbnail(url = "https://img-9gag-fun.9cache.com/photo/a1oGrKY_460s.jpg" )
+
+        em.set_image(url = "https://img.wattpad.com/cover/149189757-352-k950686.jpg")
+
+        em.set_footer(icon_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSBEL7SbdrnB8GOh1-24GYicD6u6INzKWVkQ&usqp=CAU", text = "Makoto Nijima")
+
         em.add_field(name = "Field Name", value = "Field Value")
+
         await ctx.send(embed = em)
 
 

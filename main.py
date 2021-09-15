@@ -9,21 +9,29 @@ bot = commands.Bot(command_prefix='.')
 
 @bot.command()
 async def load(ctx, extension):
-    bot.load_extension(f"cogs.{extension}")
-    await ctx.send(f"{extension} loaded")
-
+    if ctx.author.id == 683289301290844165:
+        bot.load_extension(f"cogs.{extension}")
+        await ctx.send(f"{extension} loaded")
+    else :
+        await ctx.send("You do not have permission to use this")
 
 @bot.command()
 async def unload(ctx, extension):
-    bot.unload_extension(f"cogs.{extension}")
-    await ctx.send(f"{extension} unloaded")
+    if ctx.author.id == 683289301290844165:
+        bot.unload_extension(f"cogs.{extension}")
+        await ctx.send(f"{extension} unloaded")
+    else :
+        await ctx.send("You do not have permission to use this")
+
 
 @bot.command()
 async def reload(ctx, extension):
-    bot.unload_extension(f"cogs.{extension}")
-    bot.load_extension(f"cogs.{extension}")
-    await ctx.send(f"{extension} reloaded")
-
+    if ctx.author.id == 683289301290844165:
+        bot.unload_extension(f"cogs.{extension}")
+        bot.load_extension(f"cogs.{extension}")
+        await ctx.send(f"{extension} reloaded")
+    else :
+        await ctx.send("You do not have permission to use this")
 
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
