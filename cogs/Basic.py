@@ -31,7 +31,7 @@ class Basic(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("try .say **message to send**")
         else:
-            await ctx.send("Invalid input")
+            print(error)
 
 
     # sample embed command

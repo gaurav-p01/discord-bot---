@@ -21,30 +21,40 @@ class Waifu(commands.Cog):
 
     # waifu dm command
     @commands.command()
-    async def waifudm(self, ctx, user : discord.User, message : None, number : None):
-        await ctx.send("Done") 
-        if message == None:
-            message = "waifu"
-        if number == None:
-            number = 1
-        if message.lower() in self.WAIFU_CATEGORY:
+    async def waifudm(self, ctx, user : discord.User, category, number):
+        if category.lower() in self.WAIFU_CATEGORIES:
             if number.isdigit():
                 for i in range (int(number)):
-                    r = requests.get(f"https://api.waifu.pics/sfw/{message.lower()}").json()
+                    r = requests.get(f"https://api.waifu.pics/sfw/{category.lower()}").json()
                     em = discord.Embed()
                     em.set_image(url = r["url"])
                     await user.send(embed = em)
-            else :
-                await ctx.send("Invalid number")
-        else :
-            await ctx.send("Invalid waifu category")   
+        await ctx.send("Done")    
     # error handling
     @waifudm.error
     async def waifudm_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("try .waifudm **mention_user** **waifu_category** **number**")
         else:
-            await ctx.send("Invalid input")
+            print(error)
+
+
+    @commands.command()
+    async def waifupics(self, ctx, category, number):
+        if category.lower() in self.WAIFU_CATEGORIES:
+            if number.isdigit():
+                for i in range (int(number)):
+                    r = requests.get(f"https://api.waifu.pics/sfw/{category.lower()}").json()
+                    em = discord.Embed()
+                    em.set_image(url = r["url"])
+                    await ctx.send(embed = em)
+    # error handling
+    @waifupics.error
+    async def waifupics_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("try .waifupics **waifu_category** **number**")
+        else:
+            print(error)  
 
 
 def setup(bot):

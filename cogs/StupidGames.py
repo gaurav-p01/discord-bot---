@@ -39,7 +39,7 @@ class StupidGames(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("try .guess **number**")
         else:
-            await ctx.send("Invalid input")
+            print(error)
 
 
 def setup(bot):

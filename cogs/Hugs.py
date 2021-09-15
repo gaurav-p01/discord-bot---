@@ -24,7 +24,7 @@ class Hugs(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("try .hugspam **mention the user here**")
         else:
-            await ctx.send("Invalid input")     
+            print(error)     
 
 
 def setup(bot):
