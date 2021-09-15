@@ -7,6 +7,7 @@ import discord
 bot = commands.Bot(command_prefix='.')
 
 
+# load command
 @bot.command()
 async def load(ctx, extension):
     if ctx.author.id == 683289301290844165:
@@ -15,6 +16,8 @@ async def load(ctx, extension):
     else :
         await ctx.send("You do not have permission to use this")
 
+
+# unload command
 @bot.command()
 async def unload(ctx, extension):
     if ctx.author.id == 683289301290844165:
@@ -24,6 +27,7 @@ async def unload(ctx, extension):
         await ctx.send("You do not have permission to use this")
 
 
+# reload command
 @bot.command()
 async def reload(ctx, extension):
     if ctx.author.id == 683289301290844165:
@@ -33,6 +37,8 @@ async def reload(ctx, extension):
     else :
         await ctx.send("You do not have permission to use this")
 
+
+# loads all cogs when bot is started
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         bot.load_extension(f"cogs.{filename[:-3]}")

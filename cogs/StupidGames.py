@@ -6,21 +6,24 @@ import random
 class StupidGames(commands.Cog):
     GAMES = ["guess"]
 
+
     def __init__(self, bot):
         self.bot = bot
 
-    # Gamelist
+
+    # gamelist
     @commands.command()
     async def gamelist(self, ctx):
-        await ctx.send(" ".join([str(_) for _ in self.GAMES]) +
-                       "\n\nType **.gamename start** to start a game")
+        em = discord.Embed(title = "Game List", color = discord.Color.green())
+        em.add_field(name = "Games", value = "\n".join([str(_) for _ in self.GAMES]))
+        await ctx.send(embed = em)
 
-    # Guess the number
+
+    # guess the number
     @commands.command()
     async def guess(self, ctx, message):
         if message == "start":
-            await ctx.send(
-                """I have chosen a number between 1 and 10 try to guess it
+            await ctx.send("""I have chosen a number between 1 and 10 try to guess it
             \nType .guess *number* to guess""")
         elif message.isdigit():
             mynum = random.randint(1, 10)
@@ -28,6 +31,13 @@ class StupidGames(commands.Cog):
                 await ctx.send("Thats the number I chose :sparkles:")
             else:
                 await ctx.send("Thats not the number I chose :turtle:")
+        else:
+            await ctx.send("try .guess *number*")
+    # error handling
+    @guess.error
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("try .guess **number**")
         else:
             await ctx.send("Invalid input")
 
