@@ -3,7 +3,7 @@ from discord.ext import commands
 import requests
 
 
-class Waifu(commands.Cog):
+class Anime(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -22,14 +22,14 @@ class Waifu(commands.Cog):
     # waifu dm command
     @commands.command()
     async def waifudm(self, ctx, user : discord.User, category, number):
+        await ctx.send("Done")  
         if category.lower() in self.WAIFU_CATEGORIES:
             if number.isdigit():
                 for i in range (int(number)):
                     r = requests.get(f"https://api.waifu.pics/sfw/{category.lower()}").json()
                     em = discord.Embed()
                     em.set_image(url = r["url"])
-                    await user.send(embed = em)
-        await ctx.send("Done")    
+                    await user.send(embed = em)  
     # error handling
     @waifudm.error
     async def waifudm_error(self, ctx, error):
@@ -57,5 +57,13 @@ class Waifu(commands.Cog):
             print(error)  
 
 
+    @commands.command()
+    async def hug(self, ctx, user : discord.User):
+        r = requests.get("https://api.waifu.pics/sfw/hug").json()
+        em = discord.Embed(color = discord.Color.green())
+        em.set_author(name = f"{ctx.author.name} hugs {user.name}", icon_url = ctx.author.avatar_url)
+        em.set_image(url = r["url"])
+        await ctx.send(embed = em) 
+
 def setup(bot):
-    bot.add_cog(Waifu(bot))
+    bot.add_cog(Anime(bot))
